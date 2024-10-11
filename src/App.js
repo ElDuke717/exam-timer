@@ -93,7 +93,11 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Exam Timer App</h1>
+      <h1>Exam Timer</h1>
+      <p>
+        Use this timer to time yourself while taking practice exams and
+        preparing to take certification exams.
+      </p>
       {!examStarted ? (
         <>
           <Setup onStart={handleStartExam} />
