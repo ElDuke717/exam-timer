@@ -1,13 +1,451 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  /* Primary - Blue */
+  --blue-050: #dceefb;
+  --blue-100: #b6e0fe;
+  --blue-200: #84c5f4;
+  --blue-300: #62b0e8;
+  --blue-400: #4098d7;
+  --blue-500: #2680c2;
+  --blue-600: #186faf;
+  --blue-700: #0f609b;
+  --blue-800: #0a558c;
+  --blue-900: #003e6b;
+
+  /* Yellow Vivid */
+  --yellow-vivid-050: #fffbea;
+  --yellow-vivid-100: #fff3c4;
+  --yellow-vivid-200: #fce588;
+  --yellow-vivid-300: #fadb5f;
+  --yellow-vivid-400: #f7c948;
+  --yellow-vivid-500: #f0b429;
+  --yellow-vivid-600: #de911d;
+  --yellow-vivid-700: #cb6e17;
+  --yellow-vivid-800: #b44d12;
+  --yellow-vivid-900: #8d2b0b;
+
+  /* Neutrals - Blue Grey */
+  --blue-grey-050: #f0f4f8;
+  --blue-grey-100: #d9e2ec;
+  --blue-grey-200: #bcccdc;
+  --blue-grey-300: #9fb3c8;
+  --blue-grey-400: #829ab1;
+  --blue-grey-500: #627d98;
+  --blue-grey-600: #486581;
+  --blue-grey-700: #334e68;
+  --blue-grey-800: #243b53;
+  --blue-grey-900: #102a43;
+
+  /* Supporting - Cyan */
+  --cyan-050: #e0fcff;
+  --cyan-100: #bef8fd;
+  --cyan-200: #87eaf2;
+  --cyan-300: #54d1db;
+  --cyan-400: #38bec9;
+  --cyan-500: #2cb1bc;
+  --cyan-600: #14919b;
+  --cyan-700: #0e7c86;
+  --cyan-800: #0a6c74;
+  --cyan-900: #044e54;
+
+  /* Supporting - Red */
+  --red-050: #ffeeee;
+  --red-100: #facdcd;
+  --red-200: #f29b9b;
+  --red-300: #e66a6a;
+  --red-400: #d64545;
+  --red-500: #ba2525;
+  --red-600: #a61b1b;
+  --red-700: #911111;
+  --red-800: #780a0a;
+  --red-900: #610404;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Base styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--blue-grey-050);
+}
+
+.App {
+  text-align: center;
+  padding: 20px;
+  background-color: var(--blue-grey-050);
+}
+
+h1 {
+  color: var(--blue-900);
+}
+
+.setup form,
+.main-timer,
+.question-timer,
+.history {
+  max-width: 600px;
+  margin: auto;
+  background-color: var(--blue-grey-050);
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.main-timer,
+.question-timer {
+  border: 1px solid var(--blue-grey-300);
+  background-color: #ffffff;
+}
+
+button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 52x;
+}
+
+.start-button {
+  background-color: var(--cyan-500);
+}
+
+.pause-button {
+  background-color: var(--yellow-vivid-500);
+}
+
+.reset-button {
+  background-color: var(--red-500);
+}
+
+.back-to-setup {
+  margin-top: 50px;
+  background-color: var(--red-500);
+}
+
+.start-button:hover {
+  background-color: var(--cyan-600);
+}
+
+.pause-button:hover {
+  background-color: var(--yellow-vivid-600);
+}
+
+.reset-button:hover {
+  background-color: var(--red-600);
+}
+
+.back-to-setup:hover {
+  background-color: var(--red-600);
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .setup form,
+  .main-timer,
+  .question-timer,
+  .history {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+
+/* Modal.css */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it overlays other elements */
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  max-width: 80%;
+  text-align: center;
+}
+
+.modal-close-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+}
+
+.main-time-remaining {
+  font-size: 3rem;
+  margin: 20px 0;
+}
+
+.question-time-remaining {
+  font-size: 3rem;
+  margin: 20px 0;
+}
+
+/* Finish and Save Button */
+.finish-and-save {
+  background-color: var(--cyan-500);
+  width: 100px;
+}
+
+.finish-and-save:hover {
+  background-color: var(--cyan-600);
+}
+
+/* Delete Button in History */
+.delete-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: var(--red-500);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: var(--red-600);
+}
+
+/* Finish and Save Button */
+.finish-and-save {
+  background-color: var(--cyan-500);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+  padding: 10px 20px;
+}
+
+.finish-and-save:hover {
+  background-color: var(--cyan-600);
+}
+
+/* Back to Setup Button */
+.back-to-setup {
+  margin-top: 50px;
+  background-color: var(--red-500);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.back-to-setup:hover {
+  background-color: var(--red-600);
+}
+
+/* Export History Button */
+.export-history-button {
+  background-color: var(--blue-500);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 15px;
+  padding: 10px 20px;
+}
+
+.export-history-button:hover {
+  background-color: var(--blue-600);
+}
+
+/* Delete Button in History */
+.delete-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: var(--red-500);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: var(--red-600);
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .setup form,
+  .main-timer,
+  .question-timer,
+  .history {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    margin: 5px 0;
+  }
+
+  .export-history-button {
+    width: 100%;
+  }
+}
+
+/* Optional: Style for history list items */
+.history ul li {
+  margin-bottom: 10px;
+  list-style: none;
+}
+
+.history ul li strong {
+  margin-right: 5px;
+}
+
+/* Ensure buttons align properly */
+.main-timer button,
+.question-timer button,
+.modal-content button,
+.back-to-setup,
+.finish-and-save,
+.export-history-button,
+.delete-button {
+  margin: 10px;
+  padding: 10px 20px;
+}
+
+/* Center the History table */
+.history-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.history-table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.history-table th,
+.history-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.history-table th {
+  background-color: #f2f2f2;
+}
+
+/* Center the timers in App.js */
+.timers-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.timers-container > * {
+  margin: 10px 0;
+  width: 350px;
+}
+
+/* Button Styles */
+.finish-and-save {
+  background-color: var(--cyan-500);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+  padding: 10px 20px;
+  width: 300px;
+}
+
+.finish-and-save:hover {
+  background-color: var(--cyan-600);
+}
+
+.back-to-setup {
+  background-color: var(--red-500);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+  padding: 10px 20px;
+  width: 300px;
+}
+
+.back-to-setup:hover {
+  background-color: var(--red-600);
+}
+
+.export-history-button {
+  background-color: var(--blue-500);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 15px;
+  padding: 10px 20px;
+}
+
+.export-history-button:hover {
+  background-color: var(--blue-600);
+}
+
+.delete-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: var(--red-500);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: var(--red-600);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.modal-close-button {
+  margin-left: 10px;
+  background-color: var(--yellow-vivid-200);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.modal-close-button:hover {
+  background-color: var(--gray-600);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .history-table {
+    width: 100%;
+  }
+
+  .timers-container {
+    width: 100%;
+    padding: 0 10px;
+  }
 }
